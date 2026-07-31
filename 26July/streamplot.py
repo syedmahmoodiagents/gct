@@ -27,3 +27,19 @@ st.header("Elbow Method")
 fig, ax = plt.subplots()
 ax.plot(ls_k, ls_iner)
 st.pyplot(fig)
+
+
+k = st.sidebar.slider("Number of Clusters (k)", 1, 10, 1)
+
+model = KMeans(n_clusters=k)
+model.fit(X)
+df['Cluster'] = model.labels_
+c = model.cluster_centers_
+
+st.dataframe(df)
+
+fig2, ax2 = plt.subplots()
+ax2.scatter(X[:,0], X[:,1])
+for k in range(k):
+    ax2.scatter(c[k,0], c[k,1])
+st.pyplot(fig2)
